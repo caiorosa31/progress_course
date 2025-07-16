@@ -1,0 +1,22 @@
+FIND FIRST customer
+WHERE customer.creditlimit > 15000
+NO-LOCK NO-ERROR.
+IF AVAIL customer THEN
+    DISPLAY customer
+    EXCEPT customer.comments customer.address
+    WITH 1 COLUMN WIDTH 250.
+    
+REPEAT:
+    PAUSE.
+    FIND NEXT customer
+    WHERE customer.creditlimit > 15000
+    NO-LOCK NO-ERROR.
+    IF AVAIL customer THEN
+    DISPLAY customer
+    EXCEPT customer.comments customer.address
+    WITH 1 COLUMN WIDTH 250.
+    ELSE
+    LEAVE.
+        
+   
+END.

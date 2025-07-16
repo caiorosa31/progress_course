@@ -1,5 +1,5 @@
 
-## 📁 I-add3.p — Estrutura de Navegação e Busca com FOR EACH e FIND
+## 📁 I-add3.p
 
 
 ### 🔍 Explicação:
@@ -12,14 +12,9 @@ Este exercício apresenta uma estrutura básica para percorrer registros com FOR
 ## 🔍 Código explicado
 
 ```bash
-FOR EACH customer:
-    🔵 /* Inicia um loop que percorre todos os registros da tabela customer */
-
-    FIND 
-    🔵 /* Ponto de inserção para buscar outro registro relacionado ou realizar validações */
-
-END.
-🔵 /* Finaliza o loop */
+REPEAT:
+    INSERT customer WITH 1 COLUMN WIDTH 250.
+   END.
 
 ```
 

@@ -1,0 +1,8 @@
+CURRENT-WINDOW:WIDTH = 251.
+FOR EACH order NO-LOCK
+    WHERE order.ordernum > 10,
+    EACH orderline NO-LOCK
+        WHERE orderline.ordernum = order.ordernum:
+    DISPLAY order WITH WIDTH 250.
+    DISP orderline WITH WIDTH 250.
+END.

@@ -1,0 +1,6 @@
+FOR EACH customer NO-LOCK
+ USE-INDEX NAME:
+ DISPLAY customer.Balance 
+ customer.Name 
+ customer.Phone.
+ END.

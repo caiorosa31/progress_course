@@ -1,3 +1,3 @@
-FOR EACH customer:
-    FIND 
-END.
+REPEAT:
+    INSERT customer WITH 1 COLUMN WIDTH 250.
+   END.

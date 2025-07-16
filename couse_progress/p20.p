@@ -1,0 +1,4 @@
+CREATE customer.
+DISPLAY customer WITH SIDE-LABELS 1 COLUMNS WIDTH 120.
+PROMPT-FOR customer.
+ASSIGN customer.

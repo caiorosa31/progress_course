@@ -1,0 +1,6 @@
+DEF VAR c-nome AS CHAR NO-UNDO.
+DEF VAR i-idade AS INT NO-UNDO.
+
+CREATE customer.
+SET customer.NAME.
+DISPLAY customer WITH SIDE-LABELS 2 COLUMNS WIDTH 120.

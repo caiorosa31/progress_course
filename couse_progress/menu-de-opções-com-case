@@ -11,7 +11,6 @@ DISP "1-primeiro" AT 10
 
 OPEN QUERY qr-cust FOR EACH customer. // WHERE customer.creditlimit > 15000.
 
-GET FIRST qr-cust.
 REPEAT:     
     UPDATE iPos WITH FRAME f-dados.
     CASE iPos:

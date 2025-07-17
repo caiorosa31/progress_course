@@ -1,0 +1,7 @@
+DISPLAY "Relatório de Clientes"
+ WITH FRAME f-abc CENTERED.
+FOR EACH customer:
+ DISPLAY customer.CustNum customer.Name 
+ WITH FRAME xxx 5 DOWN.
+ //WITH FRAME xxx DOWN.
+END.

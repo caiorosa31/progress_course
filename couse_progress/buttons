@@ -1,0 +1,9 @@
+DEF VAR L-RESP AS LOGICAL INITIAL NO NO-UNDO.
+
+    MESSAGE "Confirma atualização ?"
+        UPDATE l-resp
+        VIEW-AS ALERT-BOX
+        QUESTION BUTTONS YES-NO-CANCEL
+        TITLE "Atualização de dados".
+        
+DISP l-resp.

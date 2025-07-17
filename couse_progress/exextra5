@@ -1,0 +1,14 @@
+DEFINE VARIABLE cNome AS CHARACTER FORMAT "X(40)" NO-UNDO.
+DEF VAR dtatz AS DATE FORMAT "99/99/9999" NO-UNDO
+                INITIAL TODAY LABEL "Atualizacao".
+                
+DEFINE VARIABLE ix AS INTEGER NO-UNDO. 
+
+REPEAT:
+ASSIGN ix += 1.
+    DISP ix.
+    UPDATE cNome
+       dtatz
+       WITH SIDE-LABELS 1 COL.
+    ASSIGN cNome += "X".
+END.

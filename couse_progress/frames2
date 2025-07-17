@@ -1,0 +1,15 @@
+DISPLAY "Relatório de Clientes"
+            WITH FRAME f-abc CENTERED.
+
+DEFINE FRAME f-dados
+    customer.CustNum LABEL "Código"    TO 20 //to direita para esquerda
+    customer.Name    LABEL "Nome"      AT 5  //at esquerda para direita
+    customer.Address LABEL "Endereço"  AT 5   SKIP(1)
+        WITH SIDE-LABELS OVERLAY
+        KEEP-TAB-ORDER NO-VALIDATE.
+ 
+ FOR EACH customer:
+     DISPLAY customer.custnum
+             customer.NAME
+             customer.address WITH FRAME f-dados 3 DOWN.
+ END.

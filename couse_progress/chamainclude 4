@@ -1,0 +1,3 @@
+{i-mostra3.i &table="customer" &field1="Name"}
+{i-mostra3.i &table="salesrep" &field1="repname" &field2="salesrep" &ord="repname"}
+{i-mostra3.i &table="order" &field1="ordernum"}

@@ -17,7 +17,7 @@ DEFINE FRAME f-dados
  //PAUSE.
  
  
- 
+ PAUSE 1 BEFORE-HIDE. //Pause 1 segundos antes de apagar a frame
  FOR EACH customer WITH FRAME f-dados:
      DISPLAY customer.custnum
              customer.NAME

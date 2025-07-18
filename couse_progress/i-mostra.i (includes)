@@ -1,0 +1,5 @@
+/* i-mostra.i */
+FOR EACH {&table}:
+ DISPLAY {&table}.{&field}
+         {&table}.{&field}..    //&table e &field são pré-processadores
+END.

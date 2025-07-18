@@ -1,0 +1,40 @@
+/* i-mostra3.i */
+FOR EACH customer
+
+     
+
+
+        :
+ DISPLAY customer.Name
+        
+         .
+END.
+ 
+/* i-mostra3.i */
+FOR EACH salesrep
+
+     
+               BY salesrep.repname
+        
+
+
+        :
+ DISPLAY salesrep.repname
+        
+               salesrep.salesrep
+        
+         .
+END.
+ 
+/* i-mostra3.i */
+FOR EACH order
+
+     
+
+
+        :
+ DISPLAY order.ordernum
+        
+         .
+END.
+ 

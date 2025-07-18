@@ -1,0 +1,4 @@
+{i-mostra.i &table="customer" &field="Name CustNum"}
+{i-mostra.i &table="salesrep" &field="repname"}
+
+Não pode esquecer de adicionar o caminho no ProPath de onde o include está, caso não arrume no proPath, tem que escrever o caminho na chamada da include.

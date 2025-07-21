@@ -1,0 +1,16 @@
+DEFINE BUFFER b2 FOR customer.
+
+FIND customer WHERE customer.custnum = 5.
+FIND b2 WHERE b2.custnum = 6.
+
+DISPLAY customer.NAME
+        SKIP(1)
+        b2.NAME
+        WITH SIDE-LABELS.
+
+IF customer.NAME = b2.NAME THEN
+DO:
+    MESSAGE "Nomes iguais." VIEW-AS ALERT-BOX. 
+END.
+ELSE
+   MESSAGE "Nomes diferentes." VIEW-AS ALERT-BOX. 

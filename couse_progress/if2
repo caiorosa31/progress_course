@@ -1,0 +1,10 @@
+DEF VAR i-nota AS DECIMAL NO-UNDO.
+
+UPDATE i-nota LABEL "Nota do Aluno".
+
+IF i-nota < 5 THEN
+        MESSAGE "Reprovado" VIEW-AS ALERT-BOX INFORMATION.    
+ELSE IF i-nota = 5 AND i-nota < 7 THEN
+        MESSAGE "Recuperação" VIEW-AS ALERT-BOX INFORMATION.
+ELSE
+        MESSAGE "Aprovado" VIEW-AS ALERT-BOX INFORMATION.

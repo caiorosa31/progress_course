@@ -6,7 +6,7 @@ UPDATE new_rep.
 
 FOR EACH customer WHERE customer.salesrep = old_rep:
 
-UPDATE customer.salesrep = new_rep.
+ASSIGN customer.salesrep = new_rep.
 
     DISPLAY customer.salesrep
             customer.NAME

@@ -1,6 +1,6 @@
 CURRENT-WINDOW:WIDTH = 251.
 
-DEF VAR d-credit AS DECIMAL NO-UNDO.
+DEF VAR d-credit AS INT FORMAT ">>>,>>9" NO-UNDO.
 
 PROMPT-FOR customer.custnum.
 

@@ -1,0 +1,10 @@
+DEF VAR i-idade AS INT NO-UNDO.
+
+UPDATE i-idade.
+
+IF i-idade >= 18 THEN
+DO:
+        MESSAGE "Maior de idade" VIEW-AS ALERT-BOX INFORMATION.    
+END.
+ELSE
+        MESSAGE "Menor de idade" VIEW-AS ALERT-BOX INFORMATION. 

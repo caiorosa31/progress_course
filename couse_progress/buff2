@@ -1,0 +1,23 @@
+DEFINE BUFFER b-dup FOR customer.
+DEF VAR i-cod AS INT NO-UNDO.
+
+PROMPT-FOR i-cod.
+
+FIND customer WHERE customer.custnum = INPUT i-cod NO-ERROR.
+
+IF AVAIL customer THEN DO:
+    CREATE b-dup.
+    ASSIGN
+        b-dup.NAME    = customer.NAME
+        b-dup.custnum = customer.custnum + 1.
+
+    DISPLAY customer.custnum
+            customer.NAME
+            SKIP(1)
+            b-dup.custnum
+            b-dup.NAME
+        WITH SIDE-LABELS WIDTH 250.
+END.
+ELSE DO:
+    MESSAGE "Cliente não encontrado" VIEW-AS ALERT-BOX ERROR.
+END.

@@ -1,0 +1,36 @@
+/* Solicita o código do cliente */
+
+REPEAT:
+
+    PROMPT-FOR customer.CustNum.
+
+    /* Procura o cliente com base no código informado */
+    FIND customer WHERE customer.CustNum = INPUT customer.CustNum NO-ERROR.
+
+    IF AVAILABLE customer THEN DO:
+
+        /* Verifica o limite de crédito do cliente */
+        IF customer.CreditLimit = 0 THEN DO:
+            MESSAGE "Sem crédito." VIEW-AS ALERT-BOX.
+        
+        END.
+        ELSE IF customer.CreditLimit > 10000 THEN DO:
+            MESSAGE "Crédito alto." VIEW-AS ALERT-BOX.
+        
+        END.
+        ELSE DO:
+            MESSAGE "Crédito padrão." VIEW-AS ALERT-BOX.
+        END.
+
+        /* Exibe os dados do cliente */
+        DISPLAY customer.CustNum
+                customer.Name
+                customer.CreditLimit.
+
+    END.
+    ELSE DO:
+        /* Caso o cliente não exista */
+        MESSAGE "Cliente não encontrado." VIEW-AS ALERT-BOX.
+    END.
+
+END.

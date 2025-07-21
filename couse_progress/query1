@@ -1,0 +1,13 @@
+DEFINE QUERY qr-cust FOR customer SCROLLING.
+
+OPEN QUERY qr-cust FOR EACH customer WHERE customer.custnum > 0.
+
+GET FIRST qr-cust.
+
+REPEAT:
+    IF NOT AVAILABLE customer THEN LEAVE. /* Acabaram os registros */
+    
+    DISPLAY customer.CustNum customer.Name.
+    
+    GET NEXT qr-cust.
+END.

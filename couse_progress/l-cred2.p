@@ -10,10 +10,10 @@ DISPLAY customer.custnum
         customer.NAME
         customer.creditlimit.
         
-d-credit = customer.creditlimit.
+assign d-credit = customer.creditlimit.
 
     REPEAT:
-        FIND NEXT customer WHERE customer.creditlimit >= d-credit.
+        FIND NEXT customer WHERE customer.creditlimit >= d-credit by customer.creditlimit DESC.
         DISPLAY customer.custnum
                 customer.NAME
                 customer.creditlimit.

@@ -1,0 +1,14 @@
+DEFINE QUERY qr-cust FOR customer FIELDS (custnum NAME) SCROLLING.
+
+OPEN QUERY qr-cust FOR EACH customer.
+
+GET LAST qr-cust.
+
+REPEAT:
+
+    DISPLAY customer.custnum LABEL "Código"
+            customer.NAME LABEL "Nome".
+            
+            GET PREV qr-cust.
+
+END.

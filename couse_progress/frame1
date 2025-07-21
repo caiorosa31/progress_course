@@ -1,0 +1,16 @@
+DISPLAY "Relatório de Clientes"
+    WITH FRAME f-titulo CENTERED.
+
+DEFINE FRAME f-dados
+    SKIP(1)
+    customer.CustNum  NO-LABEL AT 5
+    customer.NAME AT 5
+    customer.Address AT 5 SKIP
+WITH 
+    SIDE-LABELS 
+    KEEP-TAB-ORDER 
+    NO-VALIDATE.
+
+FOR EACH customer WITH FRAME f-dados DOWN CENTERED:
+  DISPLAY customer.CustNum customer.NAME customer.address.
+END.

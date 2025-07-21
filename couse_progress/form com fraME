@@ -1,0 +1,16 @@
+FORM
+    customer.CustNum NO-LABEL SKIP
+    customer.Name AT 10 SKIP
+    customer.Address AT 10
+WITH FRAME f-cadastro WITH SIDE-LABELS.
+
+FIND FIRST customer NO-LOCK NO-ERROR.
+
+IF AVAILABLE customer THEN DO:
+    DISPLAY customer.CustNum
+            customer.NAME
+            customer.Address WITH FRAME f-cadastro.
+    VIEW FRAME f-cadastro.
+    PAUSE 3.
+    HIDE FRAME f-cadastro NO-PAUSE.
+END.

@@ -1,0 +1,15 @@
+CURRENT-WINDOW:WIDTH = 251.
+
+DEFINE BUFFER b-outro FOR customer.
+
+PROMPT-FOR customer.custnum.
+
+FIND customer WHERE customer.custnum = INPUT customer.custnum.
+
+FIND b-outro WHERE b-outro.custnum = customer.custnum + 1.
+
+DISPLAY customer.custnum
+        customer.NAME
+        SKIP(1)
+        b-outro.custnum
+        b-outro.NAME WITH SIDE-LABELS WIDTH 250.

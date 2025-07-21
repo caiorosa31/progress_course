@@ -1,0 +1,15 @@
+DEF VAR cont AS INT.
+
+DEFINE QUERY qr-cust FOR customer SCROLLING.
+
+OPEN QUERY qr-cust FOR EACH customer.
+
+GET FIRST qr-cust.
+cont = 0.
+REPEAT:
+    cont = cont + 1.
+    IF cont > 3 THEN LEAVE.
+    DISPLAY customer.NAME
+            customer.custnum.
+    GET NEXT qr-cust.
+END.

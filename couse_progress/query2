@@ -1,0 +1,16 @@
+DEFINE QUERY qr-cust  FOR customer FIELDS (CustNum Name) SCROLLING.
+
+OPEN QUERY qr-cust 
+    FOR EACH customer  
+    WHERE customer.Name BEGINS "A".
+
+GET FIRST qr-cust.
+
+REPEAT:
+    IF NOT AVAILABLE customer THEN LEAVE.
+    
+    DISPLAY customer.CustNum LABEL "Código"
+            customer.NAME LABEL "Nome".
+
+    GET NEXT qr-cust.
+END.

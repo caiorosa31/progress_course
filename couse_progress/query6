@@ -1,0 +1,22 @@
+DEFINE QUERY qr-cust FOR customer SCROLLING.
+DEFINE VARIABLE v-resp AS LOGICAL NO-UNDO.
+
+OPEN QUERY qr-cust FOR EACH customer.
+
+GET FIRST qr-cust.
+
+REPEAT:
+
+    DISPLAY customer.custnum
+            customer.NAME.
+            
+    MESSAGE "Deseja ver o próximo ?" 
+    VIEW-AS ALERT-BOX QUESTION BUTTONS YES-NO UPDATE v-resp.
+    
+    IF v-resp = NO THEN LEAVE.
+    
+    GET NEXT qr-cust.
+    
+END.
+
+MESSAGE "Programa finalizado!" VIEW-AS ALERT-BOX. 

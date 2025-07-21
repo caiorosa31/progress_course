@@ -1,0 +1,16 @@
+DEF VAR c-op AS CHAR INITIAL "A" NO-UNDO.
+
+UPDATE c-op.
+
+
+CASE c-op:
+    WHEN "A"  THEN
+        MESSAGE "Você escolheu a opção A" VIEW-AS ALERT-BOX.
+    WHEN "B" THEN
+        MESSAGE "Você escolheu a opção B" VIEW-AS ALERT-BOX.
+    WHEN "C" THEN
+        MESSAGE "Você escolheu a opção C" VIEW-AS ALERT-BOX.
+    OTHERWISE DO:
+        MESSAGE "Opção indisponivel" VIEW-AS ALERT-BOX.
+    END.
+END CASE.

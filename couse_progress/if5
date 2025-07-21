@@ -1,0 +1,22 @@
+CURRENT-WINDOW:WIDTH = 251.
+
+DEF VAR c-nome AS CHAR NO-UNDO LABEL "Digite o nome aqui".
+DEF VAR l-conf AS LOGICAL NO-UNDO.
+
+PROMPT-FOR c-nome WITH WIDTH 250.
+
+CREATE customer.
+IF AVAIL customer THEN
+DO:
+   MESSAGE "Você confirma esse cadastro ?" 
+   VIEW-AS ALERT-BOX QUESTION BUTTON YES-NO UPDATE l-conf.
+   IF l-conf = NO THEN DO:
+        MESSAGE "Cancelado pelo usuario!" VIEW-AS ALERT-BOX INFORMATION.  
+        LEAVE.
+   END.
+   ELSE DO:
+        ASSIGN customer.NAME = INPUT c-nome.
+        ASSIGN customer.salesrep = "bbb".
+        MESSAGE "cadastrado com Sucesso!" VIEW-AS ALERT-BOX INFORMATION. 
+   END.
+END. 

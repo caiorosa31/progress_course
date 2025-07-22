@@ -1,0 +1,28 @@
+CURRENT-WINDOW:WIDTH = 251.
+DEF VAR l-resp AS LOGICAL NO-UNDO.
+
+FOR EACH order:
+    DISPLAY order EXCEPT billtoid shiptoid orderstatus warehousenum creditcard
+    WITH SIDE-LABELS 1 COL WIDTH 250 1 DOWN.
+    MESSAGE "Deseja excluir esse pedido ?"
+    VIEW-AS ALERT-BOX QUESTION BUTTONS YES-NO-CANCEL UPDATE l-resp.
+    
+    IF l-resp = YES THEN
+    DO:
+        FOR EACH orderline OF order:
+            DELETE orderline.
+        END.
+        DELETE order.
+        MESSAGE "Usuario deletado com sucesso."
+        VIEW-AS ALERT-BOX INFORMATION.
+    END.
+    ELSE IF l-resp = NO THEN
+    DO:
+        NEXT.    
+    END.
+    ELSE IF l-resp = ? THEN
+    DO:
+        LEAVE.    
+    END.
+    
+END.

@@ -1,0 +1,36 @@
+CURRENT-WINDOW:WIDTH = 251.
+
+DEF VAR l-resp AS LOGICAL INITIAL NO NO-UNDO.
+
+
+FOR EACH customer:
+    DISPLAY customer WITH SIDE-LABELS 1 COL 1 DOWN WIDTH 250.
+    MESSAGE "Você quer deletar esse usuário ?"
+    VIEW-AS ALERT-BOX QUESTION BUTTONS YES-NO-CANCEL UPDATE l-resp.
+    IF l-resp = YES THEN
+    DO:
+       FIND FIRST order OF customer NO-LOCK NO-ERROR.
+            IF NOT AVAIL order THEN
+            DO:
+                DELETE customer.
+                MESSAGE "Usuario deletado com sucesso"
+                VIEW-AS ALERT-BOX.    
+            END.
+            ELSE DO:
+                MESSAGE "Usuario não pode ser excluido porque tem pedidos em aberto."
+                VIEW-AS ALERT-BOX WARNING.
+       END.
+    END.
+    ELSE IF l-resp = NO THEN
+    DO:
+        MESSAGE "Passando para o próximo usuário."
+        VIEW-AS ALERT-BOX INFORMATION.
+        NEXT.
+    END.
+    ELSE IF l-resp = ? THEN
+    DO:
+        MESSAGE "Saindo do Sistema"
+        VIEW-AS ALERT-BOX INFORMATION.
+        LEAVE.        
+    END.
+END.

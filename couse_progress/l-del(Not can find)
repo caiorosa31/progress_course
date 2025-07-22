@@ -1,0 +1,67 @@
+/* CÓDIGO NA SEQUENCIA */
+
+CURRENT-WINDOW:WIDTH = 251.
+
+DEF VAR l-resp AS LOGICAL INITIAL NO NO-UNDO.
+
+
+FOR EACH customer:
+    DISPLAY customer WITH SIDE-LABELS 1 COL 1 DOWN WIDTH 250.
+    MESSAGE "Você quer deletar esse usuário ?"
+    VIEW-AS ALERT-BOX QUESTION BUTTONS YES-NO-CANCEL UPDATE l-resp.
+    IF l-resp = YES THEN
+    DO:
+       DELETE customer.
+       MESSAGE "Usuario deletado com sucesso"
+       VIEW-AS ALERT-BOX.
+    END.
+    ELSE IF l-resp = NO THEN
+    DO:
+        MESSAGE "Passando para o próximo usuário."
+        VIEW-AS ALERT-BOX INFORMATION.
+        NEXT.
+    END.
+    ELSE IF l-resp = ? THEN
+    DO:
+        MESSAGE "Saindo do Sistema"
+        VIEW-AS ALERT-BOX INFORMATION.
+        LEAVE.        
+    END.
+END.
+
+
+
+
+/* CÓDIGO USANDO "NOT CAN-FIND" ONDE FAZ APARECER APENAS O USUARIOS QUE NÃO
+TEM PEDIDOS E PODEM SER EXCLUIDOS*/
+
+CURRENT-WINDOW:WIDTH = 251.
+
+DEF VAR l-resp AS LOGICAL INITIAL NO NO-UNDO.
+
+
+FOR EACH customer WHERE NOT CAN-FIND
+(FIRST order WHERE order.custnum = customer.custnum):
+    DISPLAY customer WITH SIDE-LABELS 1 COL 1 DOWN WIDTH 250.
+    MESSAGE "Você quer deletar esse usuário ?"
+    VIEW-AS ALERT-BOX QUESTION BUTTONS YES-NO-CANCEL UPDATE l-resp.
+    IF l-resp = YES THEN
+    DO:
+       DELETE customer.
+       MESSAGE "Usuario deletado com sucesso"
+       VIEW-AS ALERT-BOX.
+    END.
+    ELSE IF l-resp = NO THEN
+    DO:
+        MESSAGE "Passando para o próximo usuário."
+        VIEW-AS ALERT-BOX INFORMATION.
+        NEXT.
+    END.
+    ELSE IF l-resp = ? THEN
+    DO:
+        MESSAGE "Saindo do Sistema"
+        VIEW-AS ALERT-BOX INFORMATION.
+        LEAVE.        
+    END.
+END.
+

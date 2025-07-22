@@ -1,0 +1,18 @@
+CURRENT-WINDOW:WIDTH = 251.
+
+
+FOR EACH salesrep:
+    DISPLAY salesrep.repname WITH FRAME f-rep.
+    FOR EACH customer OF salesrep:
+    DISPLAY customer.custnum
+            customer.NAME WITH FRAME f-cust.
+        FOR EACH order OF customer,
+            EACH orderline OF order,
+                EACH ITEM OF orderline:     
+                DISPLAY order.orderdate
+                        orderline.qty
+                        ITEM.itemname WITH FRAME f-ord DOWN.
+        END.
+    END.
+
+END.

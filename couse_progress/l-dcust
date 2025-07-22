@@ -1,0 +1,22 @@
+CURRENT-WINDOW:WIDTH = 251.
+
+FORM
+         customer.CustNum customer.Name colon 20 customer.SalesRep at 55
+         customer.Address colon 20
+         customer.Address2 no-label colon 20 skip
+         customer.City colon 20 customer.State colon 39 
+         customer.PostalCode colon 20 customer.Country colon 39 skip(1)
+         customer.CreditLimit colon 20
+         customer.Balance  colon 39 skip
+         customer.Terms colon 20 skip
+         customer.Discount colon 20 
+         customer.Comments
+    
+            WITH FRAME f-dados WITH SIDE-LABELS WIDTH 250.
+
+FOR EACH customer:
+    DISPLAY customer except Contact Phone WITH FRAME f-dados.
+    VIEW FRAME f-dados.
+    PAUSE 5.
+    HIDE FRAME f-dados NO-PAUSE.
+END.

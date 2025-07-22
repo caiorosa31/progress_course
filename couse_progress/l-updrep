@@ -1,0 +1,26 @@
+
+DEF VAR l-resp AS LOGICAL FORMAT "Sim/Nao" NO-UNDO.
+
+REPEAT:
+
+    PROMPT-FOR salesrep.salesrep WITH FRAME f-cod.
+
+    FIND FIRST salesrep WHERE salesrep.salesrep = INPUT salesrep.salesrep NO-ERROR.
+
+    IF AVAIL salesrep THEN
+    DO:
+            UPDATE salesrep EXCEPT salesrep.salesrep WITH FRAME f-dados.    
+    END.
+    ELSE DO:
+        CREATE salesrep.
+        ASSIGN salesrep.salesrep = INPUT salesrep.salesrep.
+        UPDATE salesrep EXCEPT salesrep.salesrep WITH FRAME f-dados.
+    END.    
+     UPDATE l-resp WITH FRAME f-resp.
+     IF l-resp = TRUE THEN
+     DO:
+     NEXT.
+     END.
+     ELSE LEAVE.
+END.
+

@@ -1,0 +1,12 @@
+REPEAT:
+
+    PROMPT order.ordernum WITH FRAME f-cod.
+    HIDE FRAME f-cod.
+    
+    FIND order WHERE order.ordernum = INPUT order.ordernum.
+    
+    FOR EACH orderline OF order:
+        DISPLAY orderline WITH FRAME f-dados SIDE-LABELS 1 COL 1 DOWN.
+    END.
+
+END.

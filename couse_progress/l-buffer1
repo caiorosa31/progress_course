@@ -1,0 +1,23 @@
+DEFINE BUFFER b-aux FOR customer.
+
+DEF VAR outrocli AS CHAR NO-UNDO.
+
+FOR EACH customer BY customer.creditlimit:
+
+    FIND FIRST b-aux NO-LOCK
+        WHERE b-aux.creditlimit = customer.creditlimit
+          AND b-aux.custnum <> customer.custnum
+        NO-ERROR. /* ? evita erro se não encontrar */
+
+    IF AVAIL b-aux THEN DO:
+        outrocli = "Sim".
+    END.
+    ELSE DO:
+        outrocli = "Nao".
+    END.
+
+    DISPLAY customer.custnum
+            customer.NAME
+            customer.creditlimit
+            outrocli.
+END.

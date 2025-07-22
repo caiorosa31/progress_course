@@ -1,0 +1,23 @@
+CURRENT-WINDOW:WIDTH = 251.
+
+
+REPEAT:
+    PROMPT-FOR ITEM.itemnum WITH FRAME f-item.
+
+    FIND ITEM USING ITEM.itemnum.
+
+    DISPLAY ITEM.itemnum
+            ITEM.itemname
+            ITEM.price
+            ITEM.onhand
+            WITH WIDTH 250 FRAME f-item.
+            
+    FOR EACH orderline WHERE orderline.itemnum = item.itemnum,
+         EACH order OF orderline BY orderline.qty DESC BY order.orderdate:
+            DISPLAY order.ordernum
+                    order.orderdate
+                    orderline.qty.
+    END.
+END.
+
+

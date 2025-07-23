@@ -1,0 +1,12 @@
+/* i-include.i */
+FOR EACH {&table}:
+ DISPLAY {&table}.{&field1}
+        &IF "{&field2}" <> "" &THEN
+               {&table}.{&field2}
+        &ENDIF
+         .
+END.
+
+
+/* Chama include */
+{i-include.i &table="customer" &field1="name" &field2="custnum"}

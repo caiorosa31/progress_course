@@ -18,6 +18,9 @@ DEF BUTTON bt-sair  LABEL "Sair" AUTO-ENDKEY.
 
 DEF VAR l-resp AS LOGICAL NO-UNDO.
 
+DEF BUFFER b-cust FOR customer.
+DEF BUFFER b-sales FOR salesrep.
+
 DEF QUERY qCust FOR customer, salesrep SCROLLING.
  
 DEF FRAME f-cust
@@ -28,7 +31,7 @@ DEF FRAME f-cust
 
     bt-prox 
 
-    bt-ult
+    bt-ult SPACE(10)
 
     bt-add
 
@@ -53,89 +56,78 @@ DEF FRAME f-cust
     IF l-resp = YES THEN
 
     DO:
-
+    ENABLE bt-sair bt-add WITH FRAME f-cust.
 
     ON 'choose' OF bt-add DO:
-
-        ASSIGN bt-pri:SENSITIVE IN FRAME f-cust = FALSE
-
-               bt-prox:SENSITIVE IN FRAME f-cust = FALSE
-
-               bt-ant:SENSITIVE IN FRAME f-cust = FALSE
-
-               bt-ult:SENSITIVE IN FRAME f-cust = FALSE
-
-               salesrep.repname:SENSITIVE IN FRAME f-cust = FALSE.
+    
+        DISABLE bt-pri bt-prox bt-ant bt-ult bt-add WITH FRAME f-cust.
 
         ENABLE bt-save
 
-               bt-cancel
-
-               customer.custnum    
+               bt-cancel  
 
                customer.NAME       
 
                customer.salesrep    
 
-               customer.address   
+               customer.address
 
-               WITH FRAME f-cust.         
+               WITH FRAME f-cust.
+               DISPLAY NEXT-VALUE(NextCustNum) @ customer.custnum WITH FRAME f-cust.
 
     END.
 
+    ON 'leave' OF customer.salesrep DO:
+        FIND FIRST b-sales WHERE b-sales.salesrep = INPUT customer.salesrep
+        NO-LOCK NO-ERROR.
+        IF NOT AVAIL b-sales THEN DO:
+            MESSAGE "Esse " INPUT customer.salesrep " salesrep não é válido"
+                VIEW-AS ALERT-BOX ERROR.
+            RETURN NO-APPLY.
+        END.
+         DISPLAY b-sales.repname @ sales.repname WITH FRAME f-cust.
+    END.
+    
     ON 'choose' OF bt-save DO:
 
-        CREATE customer.
+        CREATE b-cust.
+        
+        IF INPUT customer.NAME = "" OR INPUT customer.salesrep = "" THEN
+        DO:
+            MESSAGE "Preencha os campos" VIEW-AS ALERT-BOX.    
+        END.
+       ELSE DO:
+       
+        ASSIGN b-cust.custnum = INPUT customer.custnum.
 
-        ASSIGN customer.custnum = INPUT customer.custnum.
+        ASSIGN b-cust.NAME = INPUT customer.NAME.
 
-        ASSIGN customer.NAME = INPUT customer.NAME.
+        ASSIGN b-cust.salesrep = INPUT customer.salesrep.
 
-        ASSIGN customer.salesrep = INPUT customer.salesrep.
-
-        ASSIGN customer.address = INPUT customer.address.
+        ASSIGN b-cust.address = INPUT customer.address.
 
         MESSAGE "Usuario adicionado com sucesso!" VIEW-AS alert-box.
 
-        ENABLE bt-pri bt-ant bt-prox bt-ult bt-sair bt-add WITH FRAME f-cust.
-
-        ASSIGN customer.custnum:SENSITIVE IN FRAME f-cust = FALSE
-
-               customer.NAME:SENSITIVE IN FRAME f-cust = FALSE
-
-               customer.salesrep:SENSITIVE IN FRAME f-cust = FALSE
-
-               customer.address:SENSITIVE IN FRAME f-cust = FALSE
-
-               salesrep.repname:SENSITIVE IN FRAME f-cust = FALSE
-
-               bt-save:SENSITIVE IN FRAME f-cust = FALSE
-
-               bt-cancel:SENSITIVE IN FRAME f-cust = FALSE.
+        ENABLE bt-sair bt-add WITH FRAME f-cust.
+        
+        DISABLE bt-save bt-cancel customer.custnum customer.NAME
+                customer.salesrep customer.address salesrep.repname
+                WITH FRAME f-cust.
+       
+       END.
+      
 
     END.
 
     ON 'choose' OF bt-cancel DO:
+    
+        DISABLE bt-save bt-cancel customer.custnum customer.NAME
+                customer.salesrep customer.address salesrep.repname WITH FRAME f-cust.
 
-        ASSIGN customer.custnum:SENSITIVE IN FRAME f-cust = FALSE
-
-               customer.NAME:SENSITIVE IN FRAME f-cust = FALSE
-
-               customer.salesrep:SENSITIVE IN FRAME f-cust = FALSE
-
-               customer.address:SENSITIVE IN FRAME f-cust = FALSE
-
-               salesrep.repname:SENSITIVE IN FRAME f-cust = FALSE
-
-               bt-save:SENSITIVE IN FRAME f-cust = FALSE
-
-               bt-cancel:SENSITIVE IN FRAME f-cust = FALSE.
-
-        ENABLE bt-pri bt-ant bt-prox bt-ult bt-sair bt-add WITH FRAME f-cust.
+        ENABLE bt-sair bt-add WITH FRAME f-cust.
 
     END.
 
-    ENABLE bt-sair bt-add bt-save bt-cancel WITH FRAME f-cust.
 
     END.
 

@@ -1,0 +1,14 @@
+
+FOR EACH customer:
+    DISPLAY customer.NAME
+            customer.custnum WITH FRAME emp-frame.
+    FOR EACH order WHERE order.custnum = customer.custnum:
+        DISPLAY order.ordernum
+                order.orderdate
+                with frame assmt-frame 5 down column 40.
+    END.
+    FIND salesrep WHERE salesrep.salesrep = customer.salesrep.
+    DISPLAY salesrep.salesrep
+            salesrep.region
+            with frame dept-frame column 40 side-labels 1 column.
+END.

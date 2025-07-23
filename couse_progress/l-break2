@@ -1,0 +1,13 @@
+CURRENT-WINDOW:WIDTH = 251.
+/*  l-break1.p */
+for-SalesRep:
+for each SalesRep, 
+    each Customer of SalesRep
+    BREAK by SalesRep.SalesRep:
+    IF FIRST-OF(salesrep.salesrep) OR LAST-OF(salesrep.salesrep) THEN
+    DO:
+        DISPLAY salesrep.repname.    
+    END.
+    DISPLAY NAME 
+      Balance format "$>,>>>,>>9" (total average maximum by SalesRep.SalesRep) WITH WIDTH 250.
+end.  /* for-SalesRep */

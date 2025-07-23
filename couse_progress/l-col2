@@ -1,0 +1,29 @@
+CURRENT-WINDOW:WIDTH = 251.
+
+DEF VAR data AS DATE INITIAL TODAY NO-UNDO.
+
+UPDATE data.
+
+DISPLAY "Data do pedido:" data NO-LABEL WITH FRAME f-title CENTERED.
+
+DEF VAR cust-sales AS CHAR NO-UNDO.
+
+FOR EACH customer,
+    EACH order OF customer BY order.ordernum:
+    
+    cust-sales = customer.NAME + " - " + customer.salesrep. 
+    
+    DISPLAY order.ordernum              LABEL "Código do Pedido"      
+            order.orderdate             LABEL "Data do Pedido"
+            customer.custnum            LABEL "Código do Usuário"
+            cust-sales FORMAT "X(40)"   LABEL "Nome do Usuário - SalesRep"      
+            WITH WIDTH 250.
+            
+    IF order.orderDATE < data THEN
+    DO:
+        COLOR DISPLAY MESSAGE order.ordernum
+                              order.orderdate
+                              customer.custnum
+                              cust-sales.
+    END.
+END.

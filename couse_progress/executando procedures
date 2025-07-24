@@ -3,8 +3,8 @@ DEF VAR ix AS INT NO-UNDO.
 
 RUN persistente.p PERSISTENT SET hprog.
 
-RUN pi-calcula IN hprog.
-DO ix = 1 TO 10:
+RUN pi-calcula IN hprog (INPUT "catolica").
+DO ix = 1 TO 2:
     RUN pi-resposta IN hprog.
 END.
 
@@ -13,17 +13,21 @@ DELETE PROCEDURE hprog.
 
                             
 /* persistente.p 
+/* persistente.p */
 DEF VAR zzz AS CHAR NO-UNDO.
 
 MESSAGE "estou aqui - " zzz VIEW-AS ALERT-BOX.
 
 PROCEDURE pi-calcula:
+    DEF INPUT PARAM pNome AS CHAR NO-UNDO.
+    
     ASSIGN zzz = "calcula".
-    MESSAGE "executando calcula - " zzz VIEW-AS ALERT-BOX.
+    MESSAGE "executando calcula - " pNome VIEW-AS ALERT-BOX.
 END PROCEDURE.
 
 PROCEDURE pi-resposta:
     ASSIGN zzz = "resposta".
     MESSAGE "executando resposta - " zzz VIEW-AS ALERT-BOX.
 END PROCEDURE.
+
 */

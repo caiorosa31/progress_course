@@ -1,9 +1,13 @@
 DEF VAR hprog AS HANDLE NO-UNDO.
 DEF VAR ix AS INT NO-UNDO.
+DEF VAR iRetorno AS INT NO-UNDO.
 
 RUN persistente.p PERSISTENT SET hprog.
 
-RUN pi-calcula IN hprog (INPUT "catolica").
+RUN pi-calcula IN hprog (INPUT "catolica",
+                        INPUT "55200",
+                        OUTPUT iRetorno).
+                        MESSAGE iRetorno VIEW-AS ALERT-BOX.
 DO ix = 1 TO 2:
     RUN pi-resposta IN hprog.
 END.
@@ -13,21 +17,25 @@ DELETE PROCEDURE hprog.
 
                             
 /* persistente.p 
-/* persistente.p */
 DEF VAR zzz AS CHAR NO-UNDO.
 
-MESSAGE "estou aqui - " zzz VIEW-AS ALERT-BOX.
+MESSAGE "estou aqui - bloco principal - " zzz VIEW-AS ALERT-BOX.
 
 PROCEDURE pi-calcula:
     DEF INPUT PARAM pNome AS CHAR NO-UNDO.
+    DEF INPUT PARAM pNum AS INT NO-UNDO.
+    DEF OUTPUT PARAM pRet AS INT NO-UNDO.
     
     ASSIGN zzz = "calcula".
-    MESSAGE "executando calcula - " pNome VIEW-AS ALERT-BOX.
+    MESSAGE "executando calcula - " pNome SKIP pNum VIEW-AS ALERT-BOX.
+    ASSIGN pRet = pNum * 3.
 END PROCEDURE.
 
 PROCEDURE pi-resposta:
     ASSIGN zzz = "resposta".
     MESSAGE "executando resposta - " zzz VIEW-AS ALERT-BOX.
 END PROCEDURE.
+
+
 
 */

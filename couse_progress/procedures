@@ -1,0 +1,26 @@
+DEF FRAME f-x
+    customer.custnum
+    customer.NAME
+    WITH DOWN FRAME f-x.
+
+FOR EACH customer:
+ RUN pi-mostra-cliente.
+END.
+ PROCEDURE pi-mostra-cliente:
+     DISPLAY customer.custnum
+     customer.NAME
+     WITH FRAME f-x.
+ DOWN WITH FRAME f-x.
+ RUN pi-mostra-pedidos.
+  DISP RETURN-VALUE  WITH FRAME f-x.
+ DOWN WITH FRAME f-x.
+ END PROCEDURE.
+ 
+ PROCEDURE pi-mostra-pedidos:
+    DEF VAR iFound AS LOGICAL NO-UNDO.
+    FIND FIRST order OF customer NO-LOCK NO-ERROR.
+    IF AVAIL order THEN DO:
+        ASSIGN ifound = TRUE.
+        RETURN STRING(ifound).
+    END.
+ END PROCEDURE.

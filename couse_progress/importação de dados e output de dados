@@ -1,0 +1,24 @@
+/*Importação*/
+DEF VAR i-cust AS integer NO-UNDO.
+DEF VAR c-name AS character NO-UNDO.
+DEF VAR c-rep AS character NO-UNDO.
+DEF VAR c-data AS CHARACTER NO-UNDO.
+INPUT FROM c:/treinamento/customer.d.
+REPEAT:
+    //IMPORT   i-cust c-name c-rep c-data.
+    IMPORT UNFORMATTED c-data.
+    MESSAGE  //i-cust SKIP
+             //c-name SKIP
+             //c-rep  SKIP
+             c-data VIEW-AS ALERT-BOX.
+END.
+INPUT CLOSE.
+
+/* Output */
+OUTPUT TO c:/treinamento/customer.d.
+FOR EACH customer:
+EXPORT customer.
+END.
+OUTPUT CLOSE.
+OS-COMMAND NO-WAIT VALUE("c:/treinamento/customer.d").
+

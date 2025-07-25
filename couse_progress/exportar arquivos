@@ -3,3 +3,4 @@ FOR EACH customer:
     EXPORT customer.
 END.
 OUTPUT CLOSE.
+OS-COMMAND NO-WAIT VALUE ("notepad c:/treinamento/customer.d")

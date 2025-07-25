@@ -68,6 +68,7 @@ ON 'choose' OF bt-add DO:
 END.
 
 ON 'choose' OF bt-edit DO:
+    ASSIGN cAction = "edit".
     
     RUN piHabilitaBotoes (INPUT FALSE).
     RUN piHabilitaCampos (INPUT TRUE).
@@ -106,36 +107,34 @@ ON 'choose' OF bt-save DO:
       IF  lValid = NO THEN DO:
           RETURN NO-APPLY.
       END.
+     
       
-      FIND bcust WHERE bcust.custnum = INPUT customer.custnum.
+      IF cAction = "Add" THEN DO:
+
+            CREATE bCust.
+            ASSIGN bCust.custNum  = INPUT customer.CustNum.
+            MESSAGE "Usuário do ID: " bcust.custnum " foi criado com sucesso!" VIEW-AS ALERT-BOX INFORMATION.
       
-      IF AVAIL bcust THEN DO:
-    
+         
+      END.
+      IF cAction = "edit" THEN DO:
+      
+            FIND FIRST bcust WHERE bcust.custnum = INPUT customer.custnum EXCLUSIVE-LOCK NO-ERROR.
+            
+             MESSAGE "Usuário do ID: " bcust.custnum " foi editado com sucesso!" VIEW-AS ALERT-BOX INFORMATION.
+   
+      END.
+      
              ASSIGN bCust.NAME     = INPUT customer.NAME
                     bCust.salesrep = INPUT customer.salesrep
                     bCust.address  = INPUT customer.address
                     bCust.comments = INPUT customer.comments.
-             MESSAGE "Usuário do ID: " bcust.custnum " foi editado com sucesso!" VIEW-AS ALERT-BOX INFORMATION.
-             DISP customer.custnum customer.NAME customer.salesrep
-                  salesrep.repname customer.address customer.comments
-                  WITH FRAME f-cust.     
-      END.
-      ELSE DO:
-      
-      CREATE bCust.
-      ASSIGN bCust.custNum  = INPUT customer.CustNum
-             bCust.NAME     = INPUT customer.NAME
-             bCust.salesrep = INPUT customer.salesrep
-             bCust.address  = INPUT customer.address
-             bCust.comments = INPUT customer.comments.
-             
-              RUN piOpenQuery.
-            APPLY "choose" TO bt-ult.
-      
-      END.
    
       RUN piHabilitaBotoes (INPUT TRUE).
       RUN piHabilitaCampos (INPUT FALSE).
+      RUN piOpenQuery.
+      
+      
 END.
 
 ON 'choose' OF bt-canc DO:
@@ -163,9 +162,17 @@ PROCEDURE piMostra:
 END PROCEDURE.
 
 PROCEDURE piOpenQuery:
+    DEFINE VARIABLE rRecord AS ROWID       NO-UNDO.
+    
+    IF AVAIL customer THEN
+    DO:
+        ASSIGN rRecord = ROWID(customer).    
+    END.
+    
     OPEN QUERY qCust 
         FOR EACH customer, 
            FIRST salesrep WHERE salesrep.salesrep = customer.salesrep.
+    REPOSITION qCust TO ROWID rRecord NO-ERROR.
 END PROCEDURE.
 
 PROCEDURE piHabilitaBotoes:

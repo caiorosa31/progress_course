@@ -89,9 +89,26 @@ ON 'leave' OF customer.salesrep DO:
 END.
 
 ON 'choose' OF bt-del DO:
-    FIND customer WHERE customer.custnum = INPUT customer.custnum.
-    DELETE customer.
-    MESSAGE "Usuario deletado com sucesso!" VIEW-AS ALERT-BOX INFORMATION.
+    DEF VAR lConf AS LOGICAL NO-UNDO.
+    MESSAGE "Confirma a eliminação do customer: " customer.custnum "?" UPDATE lConf
+    VIEW-AS ALERT-BOX QUESTION BUTTONS YES-NO TITLE "Eliminação".
+    
+    DEF BUFFER bCustomer FOR customer.
+    
+    IF lConf THEN DO:
+        FIND bcustomer WHERE bcustomer.custnum = INPUT customer.custnum
+        EXCLUSIVE-LOCK NO-ERROR.
+        IF AVAIL bCustomer THEN DO:
+            FOR EACH invoice OF customer EXCLUSIVE-LOCK:
+                DELETE invoice.
+            END.
+            FOR EACH order OF customer EXCLUSIVE-LOCK:
+                DELETE order.
+            END.
+            DELETE bCustomer.
+            MESSAGE "Usuario deletado com sucesso!" VIEW-AS ALERT-BOX INFORMATION.
+        END.
+    END.
     
     RUN piOpenQuery.
     RUN piHabilitaBotoes (INPUT TRUE).

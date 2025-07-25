@@ -1,0 +1,5 @@
+OUTPUT TO c:/treinamento/customer.d.
+FOR EACH customer:
+    EXPORT customer.
+END.
+OUTPUT CLOSE.
